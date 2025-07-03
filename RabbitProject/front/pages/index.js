@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import AppLayout from '../components/AppLayout'; 
 import 'antd/dist/antd.css';   // 공통css
+import AppLayout from '../components/AppLayout'; 
+import MBTIForm from '../components/MBTIForm';
 
 const Home = () => {
   return (
     <AppLayout>
-      
+      <MBTIForm />
     </AppLayout>
   );
 };

@@ -37,16 +37,21 @@ const Sidebar = () => {
 
         .menu-item {
           font-family: "Inter", sans-serif;
+          cursor: pointer;
+          position: relative;
+          /* 기존 transform 제거 */
+        }
+
+        .menu-content-wrapper {
           display: flex;
           align-items: center;
           gap: 10px;
-          cursor: pointer;
-          position: relative;
-          transition: transform 0.3s ease;
+          padding-left: 0;
+          transition: padding-left 0.3s ease;
         }
 
-        .menu-item:hover {
-          transform: translateX(20px);
+        .menu-item:hover .menu-content-wrapper {
+          padding-left: 15px;
         }
 
         .menu-label {
@@ -55,20 +60,20 @@ const Sidebar = () => {
           transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
-        .dot {
-          width: 7px;
-          height: 7px;
-          background-color: #ededed;
-          border-radius: 50%;
-          transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
         .menu-item:hover .menu-label {
           color: #CC30FE;
           text-shadow:
             0 0 5px rgba(204, 48, 254, 0.4),
             0 0 10px rgba(204, 48, 254, 0.4),
             0 0 15px rgba(204, 48, 254, 0.3);
+        }
+
+        .dot {
+          width: 7px;
+          height: 7px;
+          background-color: #ededed;
+          border-radius: 50%;
+          transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .menu-item:hover .dot {
@@ -81,16 +86,28 @@ const Sidebar = () => {
       `}</style>
       <div className="sidebar-container" ref={sidebarRef}>
         <div className="menu-item">
-          <div className="dot" />
-          <Link href="/" legacyBehavior><span className="menu-label">MBTI</span></Link>
+          <Link href="/" legacyBehavior>
+            <div className="menu-content-wrapper">
+              <div className="dot" />
+              <span className="menu-label">MBTI</span>
+            </div>
+          </Link>
         </div>
         <div className="menu-item">
-          <div className="dot" />
-          <Link href="/keyword" legacyBehavior><span className="menu-label">키워드</span></Link>
+          <Link href="/keyword" legacyBehavior>
+            <div className="menu-content-wrapper">
+              <div className="dot" />
+              <span className="menu-label">키워드</span>
+            </div>
+          </Link>
         </div>
         <div className="menu-item">
-          <div className="dot" />
-          <Link href="/history" legacyBehavior><span className="menu-label">저장된 기록</span></Link>
+          <Link href="/history" legacyBehavior>
+            <div className="menu-content-wrapper">
+              <div className="dot" />
+              <span className="menu-label">저장된 기록</span>
+            </div>
+          </Link>
         </div>
       </div>
     </>
