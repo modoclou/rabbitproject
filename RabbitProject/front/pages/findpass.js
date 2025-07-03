@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Icon } from '@iconify/react';
 import 'antd/dist/antd.css';
 import { DownOutlined } from '@ant-design/icons';
-import { Form, Input, Button, Dropdown, Space } from 'antd';
+import { Form, Input, Button, Dropdown, Space, message } from 'antd';
 import AppLayout from '../components/AppLayout'; 
 import { createGlobalStyle } from 'styled-components';
 import Loader from '../components/Loader';
@@ -17,6 +17,19 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     text-align: center;
   }
+
+  a {
+    color: #B5B5B5;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus,
+  a:visited,
+  a:active {
+    color:rgb(211, 211, 211);
+    text-decoration: none;
+  }
     
   .title{
     color: white;
@@ -27,18 +40,7 @@ const GlobalStyle = createGlobalStyle`
     min-width: auto;
     height: auto;
     margin: 0 auto;
-    font-family: "Paprika", system-ui;
-  }
-  
-  .colortitle{
-    margin: 0 auto;
-    background: linear-gradient(75deg, #b13bff 0%, #A021EA 30%, #9000FF 70%, #8f62ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .mbti{
-    gap: 280px !important;
+    font-family: 'Orbit', system-ui;
   }
 
   .content {
@@ -108,10 +110,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: #ffffff;
   }
 
-  .login-input,
-  .login-password {
-    background-color: #FFFFFF;
-    color: #black;
+  .input {
+    background-color: transparent;
+    color: #B5B5B5;
+    border: 1px solid #FFFFFF;
     border-radius: 25px;
     padding: 0 20px !important;
     height: 40px;
@@ -120,83 +122,100 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .ant-input {
-    background-color: #FFFFFF !important;
-    color: #black;
+    background-color: transparent !important;
+    color: #B5B5B5;
   }
 
   .ant-input-affix-wrapper {
-    background-color: #FFFFFF !important;
-    border: 1px solid #FFFFFF;
+    background-color: transparent !important;
+    border: 1px solid #FFFFFF !important;
     border-radius: 25px !important;
     padding: 0 20px !important;
     height: 40px;
     min-width: 430px;
     font-family: 'Inter', system-ui;
-    color: #B5B5B5;
     display: flex;
     align-items: center;
     box-sizing: border-box;
   }
 
-  .login-input:hover,
-  .login-input:focus,
-  .login-input-focused{
+  .input:hover,
+  .input:focus,
+  .input-focused{
     box-shadow: none !important;
     border: 1px solid #FFFFFF !important;
-  }
-
-  .login-password:hover,
-  .login-password:focus,
-  .login-password-focused{
-    box-shadow: none !important;
-    border: 1px solid #FFFFFF !important;
-  }
-
-  /* 비밀번호 내부 input */
-  .ant-input-password input {
-    border: 1px solid #FFFFFF;
-    background-color: #FFFFFF !important;
-    color: #black !important;
-    border: none;
-    font-family: 'Inter', system-ui;
-    padding: 0;
-    line-height: 40px;
-  }
-
-  .ant-input-password-icon svg {
-    color: #B5B5B5;
   }
 
   .ant-input-affix-wrapper > .ant-input:not(textarea) {
     padding: 0px;
   }
 
-  .ant-input::placeholder,
-  .ant-input-password input::placeholder {
+  .ant-input::placeholder {
     font-size: 13px;
     font-family: 'Inter', system-ui;
     color: #B5B5B5;
+    opacity: 0.7;
   }
+
+  .dropdown-button.ant-btn {
+  background-color: transparent !important;
+  color: #B5B5B5 !important;
+  border: 1px solid #FFFFFF !important;
+  border-radius: 25px !important;
+  height: 40px !important;
+  min-width: 430px !important;
+  padding: 0 20px !important;
+  font-family: 'Inter', system-ui;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  line-height: 40px !important;
+}
+
+.dropdown-button.ant-btn:hover,
+.dropdown-button.ant-btn:focus,
+.dropdown-button.ant-btn:active {
+  border: 1px solid #FFFFFF !important;
+  color: #B5B5B5 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.mbti {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0.7;
+  font-family: 'Inter', system-ui;
+  font-size: 13px;
+}
 
 .ant-form-item {
   margin-bottom: 0 !important;
 }
 
 .ant-dropdown-menu {
-  position: relative;
-  margin: 0;
-  padding: 4px 0;
-  text-align: left;
-  list-style-type: none;
-  background-color: #fff;
-  background-clip: padding-box;
-  border-radius: 2px;
-  outline: none;
-  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
-  max-height: 25.5em !important;
-  overflow-y: auto !important;
+    position: relative;
+    margin: 0;
+    padding: 4px 0;
+    text-align: left;
+    list-style-type: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 2px;
+    outline: none;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    max-height: 25.5em !important;
+    overflow-y: auto !important;
 }
 `;
+
+const handleMenuClick = e => {
+  console.log('click', e);
+};
+
 
 const items = [
   {
@@ -265,20 +284,65 @@ const items = [
   },
 ];
 
-const Login = () => {
+const menuProps = {
+  items,
+  onClick: handleMenuClick,
+};
+
+const Signup = () => {
+  const [messageKeys, setMessageKeys] = useState([]);
+    const reel = {
+      display: 'inline-block',
+      color: '#7C00FE',
+      width: '20px',
+      height: '20px',
+      marginRight: '5px',
+      position: 'relative',
+      top: '0.2em',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: '100% 100%',
+      backgroundImage: "url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27%237C00FE%27 fill-rule=%27evenodd%27 d=%27M2 12c0 5.523 4.477 10 10 10h9.25a.75.75 0 0 0 0-1.5h-3.98A9.99 9.99 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12m10-3a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0 9a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m-4.5-7.5a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3M18 12a1.5 1.5 0 1 0-3 0a1.5 1.5 0 0 0 3 0%27 clip-rule=%27evenodd%27/%3E%3C/svg%3E')",
+    };
+  const showCustomMessage = () => {
+  const newKey = `msg_${Date.now()}`;
+
+  setMessageKeys((prevKeys) => {
+    let updatedKeys = [...prevKeys];
+
+    if (updatedKeys.length >= 7) {
+      const [oldestKey, ...rest] = updatedKeys;
+      message.destroy(oldestKey);
+      updatedKeys = [...rest];
+    }
+
+    const nextKeys = [...updatedKeys, newKey];
+    setMessageKeys(nextKeys);
+
+    setTimeout(() => {
+      message.open({
+        key: newKey,
+        content: '이건 커스텀 아이콘을 가진 메시지예요!',
+        icon: <div style={reel}></div>,
+        duration: 3,
+        className: 'custom-message',
+      });
+    }, updatedKeys.length < 7 ? 0 : 300);
+    return nextKeys;
+  });
+};
+
   return (
     <>
-    <AppLayout />
     <GlobalStyle />
     <div className="middle" style={{ marginBottom: '25px' }}>
       <Loader style={{ alignItems: 'center' }} />
     </div>
     <div className="middle">
-      <h3 className="title">Join to<span className="colortitle">&nbsp;Cinemine</span></h3>
+      <h3 className="title">비밀번호 찾기</h3>
     </div>
-    <span className="content"><Link href="/findpass" legacyBehavior>비밀번호 찾기</Link></span>
+    <span className="content"> </span>
     <Form
-      name="login"
+      name="findpass"
       layout="vertical"
       style={{
         width: '100%',
@@ -288,27 +352,35 @@ const Login = () => {
         gap: '15px'
       }}
     >
-      <Form.Item name="email">
-        <Input placeholder="아이디(이메일)" className="login-input" />
+    <Dropdown menu={menuProps}>
+      <Button className="dropdown-button">
+        <Space className="mbti">
+          mbti <DownOutlined />
+        </Space>
+      </Button>
+    </Dropdown>
+      <Form.Item name="username">
+        <Input placeholder="유저명" className="input" />
       </Form.Item>
-      <Form.Item name="password">
-        <Input.Password placeholder="비밀번호" className="login-password" />
+      <Form.Item name="email">
+        <Input placeholder="아이디(이메일)" className="input" />
       </Form.Item>
     </Form>
     <div className="middle" style={{marginTop: '25px', gap: '20px'}}>
-      <Link href="/signup" legacyBehavior><Button className="confirm" type="text">
-        회원가입
+      <Link href="/login" legacyBehavior><Button className="confirm" type="text">
+        로그인
       </Button></Link>
-      <Link href="/" legacyBehavior>
-      <Button className="confirm" type="text">
+      <Link href="/findpass" legacyBehavior>
+      <Button className="confirm" type="text" onClick={showCustomMessage}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          로그인
+          메일 전송
           <Icon icon="bitcoin-icons:arrow-right-filled" width="12" height="12" style={{position: 'relative', bottom: '0.05em'}} />
         </span>
       </Button>
     </Link>
     </div>
+    <AppLayout />
   </>
   );
 };
-export default Login;
+export default Signup;
