@@ -18,19 +18,6 @@ const GlobalStyle = createGlobalStyle`
     text-align: center;
   }
 
-  a {
-    color: #B5B5B5;
-    text-decoration: none;
-  }
-
-  a:hover,
-  a:focus,
-  a:visited,
-  a:active {
-    color:rgb(211, 211, 211);
-    text-decoration: none;
-  }
-    
   .title{
     color: white;
     font-size: 45px;
@@ -85,7 +72,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 15px 40px;
     border: 1px solid #FFFFFF;
     border-radius: 25px;
-    color: #B5B5B5;
+    color:rgb(255, 255, 255);
     background: transparent;
     font-family: 'Inter', system-ui;
     display: flex;
@@ -202,7 +189,7 @@ const Signup = () => {
     setTimeout(() => {
       message.open({
         key: newKey,
-        content: '이건 커스텀 아이콘을 가진 메시지예요!',
+        content: '비밀번호가 변경되었습니다.',
         icon: <div style={reel}></div>,
         duration: 3,
         className: 'custom-message',
@@ -219,7 +206,7 @@ const Signup = () => {
       <Loader style={{ alignItems: 'center' }} />
     </div>
     <div className="middle">
-      <h3 className="title">비밀번호 찾기</h3>
+      <h3 className="title">비밀번호 변경</h3>
     </div>
     <span className="content"> </span>
     <Form
@@ -244,7 +231,7 @@ const Signup = () => {
       <Link href="/login" legacyBehavior><Button className="confirm" type="text">
         로그인
       </Button></Link>
-      <Link href="/findpass" legacyBehavior>
+      <Link href="/changepass" legacyBehavior>
       <Button className="confirm" type="text" onClick={showCustomMessage}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
           메일 전송

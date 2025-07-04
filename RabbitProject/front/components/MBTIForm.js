@@ -45,7 +45,7 @@ const GlobalStyle = createGlobalStyle`
     font-famliy: "Orbit", system-ui;
   }
 
-  .ant-btn-text {
+.ant-btn-text {
   color: white;
   font-size: 12px;
   padding: 15px 40px;
@@ -59,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
   line-height: 1;
 }
 
-  .ant-btn-text:hover, .ant-btn-text:active, .ant-btn-text:focus {
+.ant-btn-text:hover, .ant-btn-text:active, .ant-btn-text:focus {
   color: black;
   background-color: #ffffff;
 }
@@ -81,10 +81,27 @@ const GlobalStyle = createGlobalStyle`
   align-items: center !important;
 }
 
-.confirm{
-  max-height: 40px;
-  max-width: 120px;
-}
+.confirm {
+    max-height: 40px;
+    max-width: 120px;
+    font-size: 12px;
+    padding: 15px 40px;
+    border: 1px solid #FFFFFF;
+    border-radius: 25px;
+    color: #cccccc;
+    background: transparent;
+    font-family: 'Inter', system-ui;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .confirm:hover,
+  .confirm:focus,
+  .confirm:active {
+    color: black;
+    background-color: #ffffff;
+  }
 
 .ant-dropdown-menu {
     position: relative;
@@ -205,7 +222,7 @@ const MBTIForm = () => {
       <Link href="/login" legacyBehavior><Button className="confirm" type="text">
         로그인
       </Button></Link>
-      <Link href="/result" legacyBehavior>
+      <Link href="/mbtiresult" legacyBehavior>
       <Button className="confirm" type="text" onClick={handleClick}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
           결과 보기

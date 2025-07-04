@@ -17,6 +17,12 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     text-align: center;
   }
+
+  a {
+    color: #B5B5B5;
+    text-decoration: none;
+    opacity: 0.7;
+  }
     
   .title{
     color: white;
@@ -49,6 +55,19 @@ const GlobalStyle = createGlobalStyle`
   text-decoration: none;
   font-size: 11px;
   font-family: 'Inter', system-ui;
+}
+
+.content a {
+  color: #B5B5B5;
+  text-decoration: none;
+  font-size: 11px;
+  font-family: 'Inter', system-ui;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.content a:hover{
+  color: #b9b9b9 !important;
+  opacity: 1;
 }
 
   .ant-btn-text {
@@ -93,7 +112,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 15px 40px;
     border: 1px solid #FFFFFF;
     border-radius: 25px;
-    color: #B5B5B5;
+    color: #cccccc;
     background: transparent;
     font-family: 'Inter', system-ui;
     display: flex;
@@ -152,7 +171,6 @@ const GlobalStyle = createGlobalStyle`
     border: 1px solid #FFFFFF !important;
   }
 
-  /* 비밀번호 내부 input */
   .ant-input-password input {
     border: 1px solid #FFFFFF;
     background-color: #FFFFFF !important;
@@ -165,6 +183,11 @@ const GlobalStyle = createGlobalStyle`
 
   .ant-input-password-icon svg {
     color: #B5B5B5;
+    transition: color 0.2s ease;
+  }
+
+  .ant-input-password-icon svg:hover {
+    color:rgb(139, 139, 139);
   }
 
   .ant-input-affix-wrapper > .ant-input:not(textarea) {
@@ -268,7 +291,6 @@ const items = [
 const Login = () => {
   return (
     <>
-    <AppLayout />
     <GlobalStyle />
     <div className="middle" style={{ marginBottom: '25px' }}>
       <Loader style={{ alignItems: 'center' }} />
@@ -308,6 +330,7 @@ const Login = () => {
       </Button>
     </Link>
     </div>
+    <AppLayout />
   </>
   );
 };

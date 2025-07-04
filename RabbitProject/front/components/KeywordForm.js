@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DownOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Dropdown, Space } from 'antd';
 import { createGlobalStyle } from 'styled-components';
 import { Icon } from '@iconify/react';
@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
     font-famliy: "Orbit", system-ui;
   }
 
-  .ant-btn-text {
+.ant-btn-text {
   color: white;
   font-size: 12px;
   padding: 15px 40px;
@@ -55,7 +55,7 @@ const GlobalStyle = createGlobalStyle`
   line-height: 1;
 }
 
-  .ant-btn-text:hover, .ant-btn-text:active, .ant-btn-text:focus {
+.ant-btn-text:hover, .ant-btn-text:active, .ant-btn-text:focus {
   color: black;
   background-color: #ffffff;
 }
@@ -66,14 +66,32 @@ const GlobalStyle = createGlobalStyle`
   align-items: center !important;
 }
 
-.confirm{
+.confirm {
   max-height: 40px;
   max-width: 120px;
+  font-size: 12px;
+  padding: 15px 40px;
+  border: 1px solid #FFFFFF;
+  border-radius: 25px;
+  color: #cccccc;
+  background: transparent;
+  font-family: 'Inter', system-ui;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirm:hover,
+.confirm:focus,
+.confirm:active {
+  color: black;
+  background-color: #ffffff;
 }
 
 .keyword-input {
   font-size: 13px;
   background-color: #FFFFFF;
+  border: 1px solid #FFFFFF;
   color: #black;
   border-radius: 25px;
   padding: 0 20px !important;
@@ -88,13 +106,19 @@ const GlobalStyle = createGlobalStyle`
   box-shadow: none !important;
   border: 1px solid #FFFFFF !important;
 }
+
+.search-icon {
+  color: #B5B5B5;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  color:rgb(139, 139, 139);
+}
 `;
 
-const handleMenuClick = e => {
-  console.log('click', e);
-};
-
-const MBTIForm = () => {
+const KeywordForm = () => {
   const [loading, setLoading] = useState(false);
   const handleClick = () => {
     setLoading(true);
@@ -111,13 +135,24 @@ const MBTIForm = () => {
     </div>
     <span className="content" style={{maxWidth: '400px', display: 'block', margin: '0 0 50px 0'}}>시네마인에서 내가 원하는 필름을 찾아보세요.</span>
     <Form.Item name="keyword">
-        <Input placeholder="키워드 입력" className="keyword-input" />
-      </Form.Item>
+      <Input placeholder="키워드 입력"
+        suffix={
+          <Link href="/result" legacyBehavior>
+            <a>
+              <SearchOutlined
+                className="search-icon" style={{ fontSize: '16px' }}
+              />
+            </a>
+          </Link>
+        }
+        className="keyword-input"
+      />
+    </Form.Item>
     <div className="middle" style={{gap: '20px'}}>
       <Link href="/login" legacyBehavior><Button className="confirm" type="text">
         로그인
       </Button></Link>
-      <Link href="/result" legacyBehavior>
+      <Link href="/keywordresult" legacyBehavior>
       <Button className="confirm" type="text" onClick={handleClick}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
           결과 보기
@@ -130,4 +165,4 @@ const MBTIForm = () => {
   );
 };
 
-export default MBTIForm;
+export default KeywordForm;

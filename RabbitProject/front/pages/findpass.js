@@ -95,7 +95,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 15px 40px;
     border: 1px solid #FFFFFF;
     border-radius: 25px;
-    color: #B5B5B5;
+    color: #cccccc;
     background: transparent;
     font-family: 'Inter', system-ui;
     display: flex;
@@ -216,7 +216,6 @@ const handleMenuClick = e => {
   console.log('click', e);
 };
 
-
 const items = [
   {
     label: 'ISTJ',
@@ -321,7 +320,7 @@ const Signup = () => {
     setTimeout(() => {
       message.open({
         key: newKey,
-        content: '이건 커스텀 아이콘을 가진 메시지예요!',
+        content: '요청하신 주소로 메일을 보냈습니다.',
         icon: <div style={reel}></div>,
         duration: 3,
         className: 'custom-message',
