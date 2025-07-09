@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Input, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { createGlobalStyle } from 'styled-components';
@@ -103,7 +104,7 @@ const GlobalStyle = createGlobalStyle`
     height: 40px;
     font-size: 13px;
     min-width: auto;
-    max-width: 430px;
+    width: 400px;
     border-radius: 25px;
     padding: 0 20px !important;
     font-family: 'Inter', sans-serif;
@@ -118,7 +119,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .sns-button {
-    background-color: #A021EA;
+    background-color:rgb(185, 35, 235);
     color: white;
     width: 45px;
     height: 45px;
@@ -199,6 +200,10 @@ const GlobalStyle = createGlobalStyle`
   font-family: 'Orbit', system-ui;
 }
 
+.shine{
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
 .ant-input-affix-wrapper keyword-input{
   box-shadow: none !important;
   border: 1px solid #FFFFFF;
@@ -239,17 +244,19 @@ const KeywordResult = () => {
           </div>
         </div>
         <div className="desc-box">
-          <h2 className="movie-title">릴리 슈슈의 모든 것</h2>
-          <p className="small">リリイ・シュシュのすべて</p>
-          <p className="small" style={{marginBottom: '10px'}}>드라마 · 일본 · 2시간 15분</p>
-          <p className="description">
-            '릴리 슈슈'의 노래를 너무나 사랑하는 열네 살 소년 유이치. 그러나 그의 일상은 힘들다. 둘도 없는 단짝 친구 호시노가 어느날 반 아이들의 리더가 되어 자신을 이지메 시키고 첫사랑 쿠노 역시 이지메를 당하지만 그녀를 도와주기에는 자신의 슬픔을 감당하기에도 벅차다. 소년의 유일한 안식처는 오로지 영혼을 뒤흔드는 듯한 ‘릴리 슈슈’의 노래 뿐... 그러나 현실은 노래로 감출 만큼 만만하지 않다.  가상의 가수 '릴리 슈슈'를 좋아하는 팬 클럽의 운영자 유이치. 현실에서는 따돌림을 당하고 금품 갈취를 당하거나 폭력을 당하는 것이 일상이다. 그 반동으로 릴리 슈슈의 팬 클럽 운영에 더 적극적이게 되지만...
-          </p>
-          <p style={{ fontSize: '24px', color: '#fff', wordSpacing: '-4px', marginBottom: '7px', textAlign: 'center' }}>
-            추천받은 영화가 마음에 들지 않는다면?
-          </p>
-          <p style={{ fontSize: '13px', color: '#fff', textAlign: 'center' }}>키워드를 입력해서 영화를 추천받을 수 있어요.<br/>분위기, 현재 나의 감정, 좋아하는 것을 적으면 AI가 다시 추천 목록을 제공합니다.            
-          </p>
+          <div className="shine">
+            <h2 className="movie-title">릴리 슈슈의 모든 것</h2>
+            <p className="small">リリイ・シュシュのすべて</p>
+            <p className="small" style={{marginBottom: '10px'}}>드라마 · 일본 · 2시간 15분</p>
+            <p className="description">
+              '릴리 슈슈'의 노래를 너무나 사랑하는 열네 살 소년 유이치. 그러나 그의 일상은 힘들다. 둘도 없는 단짝 친구 호시노가 어느날 반 아이들의 리더가 되어 자신을 이지메 시키고 첫사랑 쿠노 역시 이지메를 당하지만 그녀를 도와주기에는 자신의 슬픔을 감당하기에도 벅차다. 소년의 유일한 안식처는 오로지 영혼을 뒤흔드는 듯한 ‘릴리 슈슈’의 노래 뿐... 그러나 현실은 노래로 감출 만큼 만만하지 않다.  가상의 가수 '릴리 슈슈'를 좋아하는 팬 클럽의 운영자 유이치. 현실에서는 따돌림을 당하고 금품 갈취를 당하거나 폭력을 당하는 것이 일상이다. 그 반동으로 릴리 슈슈의 팬 클럽 운영에 더 적극적이게 되지만...
+            </p>
+            <p style={{ fontSize: '24px', color: '#fff', wordSpacing: '-4px', marginBottom: '7px', textAlign: 'center' }}>
+              추천받은 영화가 마음에 들지 않는다면?
+            </p>
+            <p style={{ fontSize: '13px', color: '#fff', textAlign: 'center' }}>키워드를 입력해서 영화를 추천받을 수 있어요.<br/>분위기, 현재 나의 감정, 좋아하는 것을 적으면 AI가 다시 추천 목록을 제공합니다.            
+            </p>
+          </div>
           <div className="search-box">
             <Input
               className="keyword-input"
@@ -257,17 +264,32 @@ const KeywordResult = () => {
               suffix={<SearchOutlined style={{ color: '#aaa' }} />}
             />
             <div className="sns-buttons">
-              <button className="sns-button"></button>
-              <button className="sns-button"></button>
-              <button className="sns-button"></button>
-              <button className="sns-button"></button>
-              <button className="sns-button"></button>
+              <button className="sns-button">
+                <Image src="/images/kakao.png" alt="KakaoTalk" className="middle" width={30} height={30} />
+              </button>
+              <button className="sns-button">
+                <Image src="/images/facebook.png" alt="KakaoTalk" className="middle" width={30} height={30} />
+              </button>
+              <button className="sns-button">
+                <Image src="/images/instagram.png" alt="KakaoTalk" className="middle" width={30} height={30} />
+              </button>
+              <button className="sns-button">
+                <Image src="/images/X.png" alt="KakaoTalk" className="middle" width={27} height={27} />
+              </button>
+              <button className="sns-button">
+                <Image src="/images/link.png" alt="KakaoTalk" className="middle" width={30} height={30} />
+              </button>
             </div>
           </div>
         </div>
-        <Link href="/" legacyBehavior>
-          <Button className="confirm" type="text">처음으로</Button>
-        </Link>
+        <div className="middle" style={{gap: '20px'}}>
+          <Link href="/" legacyBehavior>
+            <Button className="confirm" type="text">결과 다시 보기</Button>
+          </Link>
+          <Link href="/" legacyBehavior>
+            <Button className="confirm" type="text">처음으로</Button>
+          </Link>
+        </div>
       </div>
     </>
   );

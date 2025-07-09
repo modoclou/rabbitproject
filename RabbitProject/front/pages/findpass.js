@@ -5,212 +5,7 @@ import 'antd/dist/antd.css';
 import { DownOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Dropdown, Space, message } from 'antd';
 import AppLayout from '../components/AppLayout'; 
-import { createGlobalStyle } from 'styled-components';
 import Loader from '../components/Loader';
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter&family=Orbit&family=Paprika&display=swap');
- 
-  body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  a {
-    color: #B5B5B5;
-    text-decoration: none;
-  }
-
-  a:hover,
-  a:focus,
-  a:visited,
-  a:active {
-    color:rgb(211, 211, 211);
-    text-decoration: none;
-  }
-    
-  .title{
-    color: white;
-    font-size: 45px;
-    display: flex;
-    justifyContent: center;
-    alignItems: center;
-    min-width: auto;
-    height: auto;
-    margin: 0 auto;
-    font-family: 'Orbit', system-ui;
-  }
-
-  .content {
-  display: block;
-  margin: 0 auto 40px auto;
-  text-align: center;
-  color: #B5B5B5;
-  text-decoration: none;
-  font-size: 11px;
-  font-family: 'Inter', system-ui;
-}
-
-  .ant-btn-text {
-  color: white;
-  font-size: 11px;
-  padding: 15px 40px;
-  border: 1px solid #FFFFFF;
-  border-radius: 25px;
-  font-family: 'Inter', system-ui;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  line-height: 1;
-}
-
-  .ant-btn-text:hover, .ant-btn-text:active, .ant-btn-text:focus {
-  color: black;
-  background-color: #ffffff;
-}
-
-  .dropdown-button.ant-btn{
-    color: #B5B5B5;
-    padding: 20px 20px;
-    border-radius: 25px;
-    min-width: 430px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .middle {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  .confirm {
-    max-height: 40px;
-    max-width: 120px;
-    font-size: 12px;
-    padding: 15px 40px;
-    border: 1px solid #FFFFFF;
-    border-radius: 25px;
-    color: #cccccc;
-    background: transparent;
-    font-family: 'Inter', system-ui;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .confirm:hover,
-  .confirm:focus,
-  .confirm:active {
-    color: black;
-    background-color: #ffffff;
-  }
-
-  .input {
-    background-color: transparent;
-    color: #B5B5B5;
-    border: 1px solid #FFFFFF;
-    border-radius: 25px;
-    padding: 0 20px !important;
-    height: 40px;
-    min-width: 430px;
-    font-family: 'Inter', system-ui;
-  }
-
-  .ant-input {
-    background-color: transparent !important;
-    color: #B5B5B5;
-  }
-
-  .ant-input-affix-wrapper {
-    background-color: transparent !important;
-    border: 1px solid #FFFFFF !important;
-    border-radius: 25px !important;
-    padding: 0 20px !important;
-    height: 40px;
-    min-width: 430px;
-    font-family: 'Inter', system-ui;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-  }
-
-  .input:hover,
-  .input:focus,
-  .input-focused{
-    box-shadow: none !important;
-    border: 1px solid #FFFFFF !important;
-  }
-
-  .ant-input-affix-wrapper > .ant-input:not(textarea) {
-    padding: 0px;
-  }
-
-  .ant-input::placeholder {
-    font-size: 13px;
-    font-family: 'Inter', system-ui;
-    color: #B5B5B5;
-    opacity: 0.7;
-  }
-
-  .dropdown-button.ant-btn {
-  background-color: transparent !important;
-  color: #B5B5B5 !important;
-  border: 1px solid #FFFFFF !important;
-  border-radius: 25px !important;
-  height: 40px !important;
-  min-width: 430px !important;
-  padding: 0 20px !important;
-  font-family: 'Inter', system-ui;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  line-height: 40px !important;
-}
-
-.dropdown-button.ant-btn:hover,
-.dropdown-button.ant-btn:focus,
-.dropdown-button.ant-btn:active {
-  border: 1px solid #FFFFFF !important;
-  color: #B5B5B5 !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-.mbti {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  opacity: 0.7;
-  font-family: 'Inter', system-ui;
-  font-size: 13px;
-}
-
-.ant-form-item {
-  margin-bottom: 0 !important;
-}
-
-.ant-dropdown-menu {
-    position: relative;
-    margin: 0;
-    padding: 4px 0;
-    text-align: left;
-    list-style-type: none;
-    background-color: #fff;
-    background-clip: padding-box;
-    border-radius: 2px;
-    outline: none;
-    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
-    max-height: 25.5em !important;
-    overflow-y: auto !important;
-}
-`;
 
 const handleMenuClick = e => {
   console.log('click', e);
@@ -332,7 +127,6 @@ const Signup = () => {
 
   return (
     <>
-    <GlobalStyle />
     <div className="middle" style={{ marginBottom: '25px' }}>
       <Loader style={{ alignItems: 'center' }} />
     </div>
@@ -370,7 +164,7 @@ const Signup = () => {
         로그인
       </Button></Link>
       <Link href="/findpass" legacyBehavior>
-      <Button className="confirm" type="text" onClick={showCustomMessage}>
+      <Button className="confirm-white" type="text" onClick={showCustomMessage}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
           메일 전송
           <Icon icon="bitcoin-icons:arrow-right-filled" width="12" height="12" style={{position: 'relative', bottom: '0.05em'}} />

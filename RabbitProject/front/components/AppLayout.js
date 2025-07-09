@@ -1,37 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, message } from 'antd';
 import { Row, Col } from 'antd';
-import { createGlobalStyle } from 'styled-components';
 import PropTypes from 'prop-types';
 import Wavebox from './Wavebox';
 import Sidebar from './Sidebar';
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbit&family=Paprika&display=swap');
-
-  .custom-message .ant-message-notice-content {
-    border-radius: 25px !important;
-  }
-
-  .custom-message .ant-message-notice-content .ant-message-custom-content {
-    margin-bottom: 0.2em !important; /* 0.2em 위로 올리기 */
-  }
-    
-  body {
-    background-color: #1C1C1C;
-  }
-
-  ::-moz-selection {
-  color: #fff;
-  background: #1c181d;
-  }
-
-  ::selection {
-    color: #fff;
-    background: #1c181d;
-  }
-`;
-
 const AppLayout = ({ children }) => {
   const [messageKeys, setMessageKeys] = useState([]);
 
@@ -87,9 +59,8 @@ const AppLayout = ({ children }) => {
     <>
       <Row gutter={[0, 0]}>
         <Col xs={24} md={1}></Col>
-        <Col xs={24} md={1}><Sidebar /></Col>
+        <Col xs={24} md={1}></Col>
         <Col xs={24} md={20}>
-          <GlobalStyle />
           {children}
         </Col>
         <Col xs={24} md={2}></Col>

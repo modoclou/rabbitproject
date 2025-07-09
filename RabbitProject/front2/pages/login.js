@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import { Icon } from '@iconify/react';
 import 'antd/dist/antd.css';
 import { DownOutlined } from '@ant-design/icons';
-import { Form, Input, Button, Dropdown, Space } from 'antd';
+import { Form, Input, Button, Dropdown, Space, message } from 'antd';
 import AppLayout from '../components/AppLayout'; 
-import { createGlobalStyle } from 'styled-components';
 import Loader from '../components/Loader';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Inter&family=Orbit&family=Paprika&display=swap');
@@ -221,117 +223,101 @@ const GlobalStyle = createGlobalStyle`
 }
 `;
 
-const items = [
-  {
-    label: 'ISTJ',
-    key: '1',
-  },
-  {
-    label: 'ISFJ',
-    key: '2',
-  },
-  {
-    label: 'INFJ',
-    key: '3',
-  },
-  {
-    label: 'INTJ',
-    key: '4',
-  },
-  {
-    label: 'ISTP',
-    key: '5',
-  },
-  {
-    label: 'ISFP',
-    key: '6',
-  },
-  {
-    label: 'INFP',
-    key: '7',
-  },
-  {
-    label: 'INTP',
-    key: '8',
-  },
-  {
-    label: 'ESTP',
-    key: '9',
-  },
-  {
-    label: 'ESFP',
-    key: '10',
-  },
-  {
-    label: 'ENFP',
-    key: '11',
-  },
-  {
-    label: 'ENTP',
-    key: '12',
-  },
-  {
-    label: 'ESTJ',
-    key: '13',
-  },
-  {
-    label: 'ESFJ',
-    key: '14',
-  },
-  {
-    label: 'ENFJ',
-    key: '15',
-  },
-  {
-    label: 'ENFJ',
-    key: '16',
-  },
-];
-
 const Login = () => {
+  const [form] = Form.useForm();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (values) => {
+    setLoading(true);
+    try {
+      // 백엔드 로그인 엔드포인트에 맞게 URL 조정
+      const response = await axios.post(
+        'http://localhost:8080/movies/login',
+        {
+          username: values.email,
+          password: values.password,
+        }
+      );
+      message.success('로그인 성공!');
+      // 토큰 저장 등 추가 로직 필요 시 여기에...
+      router.push('/');
+    } catch (err) {
+      console.error('로그인 오류:', err);
+      message.error('로그인에 실패했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
-    <GlobalStyle />
-    <div className="middle" style={{ marginBottom: '25px' }}>
-      <Loader style={{ alignItems: 'center' }} />
-    </div>
-    <div className="middle">
-      <h3 className="title">Join to<span className="colortitle">&nbsp;Cinemine</span></h3>
-    </div>
-    <span className="content"><Link href="/findpass" legacyBehavior>비밀번호 찾기</Link></span>
-    <Form
-      name="login"
-      layout="vertical"
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '15px'
-      }}
-    >
-      <Form.Item name="email">
-        <Input placeholder="아이디(이메일)" className="login-input" />
-      </Form.Item>
-      <Form.Item name="password">
-        <Input.Password placeholder="비밀번호" className="login-password" />
-      </Form.Item>
-    </Form>
-    <div className="middle" style={{marginTop: '25px', gap: '20px'}}>
-      <Link href="/signup" legacyBehavior><Button className="confirm" type="text">
-        회원가입
-      </Button></Link>
-      <Link href="/" legacyBehavior>
-      <Button className="confirm" type="text">
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          로그인
-          <Icon icon="bitcoin-icons:arrow-right-filled" width="12" height="12" style={{position: 'relative', bottom: '0.05em'}} />
-        </span>
-      </Button>
-    </Link>
-    </div>
-    <AppLayout />
-  </>
+      <GlobalStyle />
+      <div className="middle" style={{ marginBottom: '25px' }}>
+        <Loader isActive={loading} />
+      </div>
+      <div className="middle">
+        <h3 className="title">
+          Join to<span className="colortitle">&nbsp;Cinemine</span>
+        </h3>
+      </div>
+      <span className="content">
+        <Link href="/findpass" legacyBehavior>비밀번호 찾기</Link>
+      </span>
+
+      <Form
+        form={form}
+        name="login"
+        layout="vertical"
+        onFinish={handleLogin}
+        style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '15px',
+        }}
+      >
+        <Form.Item
+          name="email"
+          rules={[{ required: true, message: '아이디(이메일)를 입력해주세요' }]}
+        >
+          <Input placeholder="아이디(이메일)" className="login-input" />
+        </Form.Item>
+
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}
+        >
+          <Input.Password placeholder="비밀번호" className="login-password" />
+        </Form.Item>
+
+        <div className="middle" style={{ marginTop: '25px', gap: '20px' }}>
+          <Link href="/signup" legacyBehavior>
+            <Button className="confirm" type="text">회원가입</Button>
+          </Link>
+          <Button
+            htmlType="submit"
+            className="confirm"
+            type="text"
+            loading={loading}
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              로그인
+              <Icon
+                icon="bitcoin-icons:arrow-right-filled"
+                width="12"
+                height="12"
+                style={{ position: 'relative', bottom: '0.05em' }}
+              />
+            </span>
+          </Button>
+        </div>
+      </Form>
+
+      <AppLayout />
+    </>
   );
 };
+
 export default Login;

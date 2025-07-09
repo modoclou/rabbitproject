@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
+import 'antd/dist/antd.css';
 import AppLayout from '../components/AppLayout'; 
-import 'antd/dist/antd.css';   // 공통css
+import History from '../components/History'; 
 
 const Home = () => {
   return (
     <AppLayout>
-      
+      <History />
     </AppLayout>
   );
 };

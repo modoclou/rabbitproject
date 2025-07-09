@@ -27,8 +27,6 @@ const GlobalStyle = createGlobalStyle`
     color: white;
     font-size: 45px;
     display: flex;
-    justifyContent: center;
-    alignItems: center;
     min-width: 505px;
     height: auto;
     font-family: "Paprika", system-ui;
@@ -49,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 13px;
     text-align: center;
     align-items: center;
-    font-famliy: "Orbit", system-ui;
+    font-family: "Orbit", system-ui;
   }
 
 .ant-btn-text {
@@ -142,11 +140,7 @@ const MBTIForm = () => {
       message.warning('MBTI를 먼저 선택해주세요.');
       return;
     }
-
-    // 로딩 표시 (선택 사항)
     setLoading(true);
-
-    // MBTI만 쿼리로 넘기고 페이지 이동
     router.push({
       pathname: '/mbtiresult',
       query: { mbti: selectedMBTI },
@@ -160,33 +154,30 @@ const MBTIForm = () => {
 
   return (
     <>
-      <GlobalStyle />
-      <div className="middle" style={{ marginBottom: '25px' }}>
-        <Loader isActive={loading} />
-      </div>
-      <div className="middle">
-        <h3 className="title">Welcome to<span className="colortitle">&nbsp;Cinemine</span></h3>
-      </div>
-      <span className="content" style={{ maxWidth: '400px', display: 'block', margin: '0 0 50px 0' }}>
-        mbti를 기반으로 당신의 성격과 꼭 맞는 영화를 AI가 선별해 드려요.<br />
-        시네마인에서 아직 만나지 못한 취향과, 숨어 있는 취향을 찾아보세요.
-      </span>
-      <Dropdown menu={{ items: menuItems, onClick: handleMenuClick }}>
-        <Button className="dropdown-button">
-          <Space className="mbti">
-            {selectedMBTI || 'mbti 선택...'} <DownOutlined />
-          </Space>
-        </Button>
-      </Dropdown>
-      <div className="middle" style={{ gap: '20px' }}>
-        <Button className="confirm" type="text" href="/login">로그인</Button>
-        <Button className="confirm" type="text" onClick={handleResultClick}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            결과 보기
-            <Icon icon="bitcoin-icons:arrow-right-filled" width="12" height="12" />
-          </span>
-        </Button>
-      </div>
+    <GlobalStyle />
+    <div className="middle" style={{ marginBottom: '25px' }}>
+      <Loader isActive={loading} style={{ alignItems: 'center' }} />
+    </div>
+    <div className="middle">
+      <h3 className="title">Welcome to<span className="colortitle">&nbsp;Cinemine</span></h3>
+    </div>
+    <span className="content" style={{maxWidth: 'auto', minWidth: '400px', display: 'block', margin: '0 0 50px 0'}}>mbti를 기반으로 당신의 성격과 꼭 맞는 영화를 AI가 선별해 드려요.<br/>시네마인에서 아직 만나지 못한 취향과, 숨어 있는 취향을 찾아보세요.</span>
+    <Dropdown menu={{ items: menuItems, onClick: handleMenuClick }}>
+      <Button className="dropdown-button">
+        <Space className="mbti">
+          mbti 선택... <DownOutlined />
+        </Space>
+      </Button>
+    </Dropdown>
+    <div className="middle" style={{gap: '20px'}}>
+      <Button className="confirm" type="text" href="/login">로그인</Button>
+      <Button className="confirm" type="text" onClick={handleResultClick}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          결과 보기
+          <Icon icon="bitcoin-icons:arrow-right-filled" width="12" height="12" style={{position: 'relative', bottom: '0.05em'}} />
+        </span>
+      </Button>
+    </div>
     </>
   );
 };
