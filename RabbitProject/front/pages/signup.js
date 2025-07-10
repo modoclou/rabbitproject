@@ -71,6 +71,13 @@ const Signup = () => {
 
   return (
     <>
+    <head>
+      <style>
+        {`body{
+          -webkit-align-items: center;
+        }`}
+      </style>
+    </head>
       <div className="middle" style={{ marginBottom: '25px' }}>
         <Loader isActive={loading} />
       </div>
@@ -78,7 +85,6 @@ const Signup = () => {
         <h3 className="title">Enter the<span className="colortitle">&nbsp;Cinemine</span></h3>
       </div>
       <span className="content"><Link href="/findpass">비밀번호 찾기</Link></span>
-
       <Form
         form={form}
         layout="vertical"
@@ -94,19 +100,19 @@ const Signup = () => {
         </Dropdown>
 
         <Form.Item name="username" rules={[{ required: true, message: '유저명을 입력해주세요' }]}>
-          <Input placeholder="유저명" className="login-input" />
+          <Input placeholder="유저명" className="input-black" />
         </Form.Item>
         <Form.Item name="email" rules={[{ required: true, message: '이메일을 입력해주세요' }]}>
-          <Input placeholder="아이디(이메일)" className="login-input" />
+          <Input placeholder="아이디(이메일)" className="input-black" />
         </Form.Item>
         <Form.Item name="age" rules={[{ required: true, message: '연령을 입력해주세요' }]}>
-          <Input placeholder="연령" className="login-input" />
+          <Input placeholder="연령" className="input-black" />
         </Form.Item>
         <Form.Item name="password" rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}>
-          <Input.Password placeholder="비밀번호" className="login-password" />
+          <Input.Password placeholder="비밀번호" className="input-black" />
         </Form.Item>
         <Form.Item name="passwordRe" rules={[{ required: true, message: '비밀번호 확인을 입력해주세요' }]}>
-          <Input.Password placeholder="비밀번호 확인" className="login-password" />
+          <Input.Password placeholder="비밀번호 확인" className="input-black" />
         </Form.Item>
       </Form>
 

@@ -5,157 +5,7 @@ import 'antd/dist/antd.css';
 import { DownOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Dropdown, Space, message } from 'antd';
 import AppLayout from '../components/AppLayout'; 
-import { createGlobalStyle } from 'styled-components';
 import Loader from '../components/Loader';
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Inter&family=Orbit&family=Paprika&display=swap');
- 
-  body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .title{
-    color: white;
-    font-size: 45px;
-    display: flex;
-    justifyContent: center;
-    alignItems: center;
-    min-width: auto;
-    height: auto;
-    margin: 0 auto;
-    font-family: 'Orbit', system-ui;
-  }
-
-  .content {
-  display: block;
-  margin: 0 auto 40px auto;
-  text-align: center;
-  color: #B5B5B5;
-  text-decoration: none;
-  font-size: 11px;
-  font-family: 'Inter', system-ui;
-}
-
-  .ant-btn-text {
-  color: white;
-  font-size: 11px;
-  padding: 15px 40px;
-  border: 1px solid #FFFFFF;
-  border-radius: 25px;
-  font-family: 'Inter', system-ui;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  line-height: 1;
-}
-
-  .ant-btn-text:hover, .ant-btn-text:active, .ant-btn-text:focus {
-    color: black;
-    background-color: #ffffff;
-  }
-
-  .middle {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  .confirm {
-    max-height: 40px;
-    max-width: 120px;
-    font-size: 12px;
-    padding: 15px 40px;
-    border: 1px solid #FFFFFF;
-    border-radius: 25px;
-    color:rgb(255, 255, 255);
-    background: transparent;
-    font-family: 'Inter', system-ui;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .confirm:hover,
-  .confirm:focus,
-  .confirm:active {
-    color: black;
-    background-color: #ffffff;
-  }
-
-  .login-password {
-    background-color: transparent;
-    color: #B5B5B5;
-    border: 1px solid #FFFFFF;
-    border-radius: 25px;
-    padding: 0 20px !important;
-    height: 40px;
-    min-width: 430px;
-    font-family: 'Inter', system-ui;
-  }
-
-  .ant-input {
-    background-color: transparent !important;
-    color: #B5B5B5;
-  }
-
-  .ant-input-affix-wrapper {
-    background-color: transparent !important;
-    border: 1px solid #FFFFFF !important;
-    border-radius: 25px !important;
-    padding: 0 20px !important;
-    height: 40px;
-    min-width: 430px;
-    font-family: 'Inter', system-ui;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-  }
-
-  .ant-input-affix-wrapper > .ant-input:not(textarea) {
-    padding: 0px;
-  }
-
-  .ant-input::placeholder {
-    font-size: 13px;
-    font-family: 'Inter', system-ui;
-    color: #B5B5B5;
-    opacity: 0.7;
-  }
-
-  .dropdown-button.ant-btn {
-  background-color: transparent !important;
-  color: #B5B5B5 !important;
-  border: 1px solid #FFFFFF !important;
-  border-radius: 25px !important;
-  height: 40px !important;
-  min-width: 430px !important;
-  padding: 0 20px !important;
-  font-family: 'Inter', system-ui;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  line-height: 40px !important;
-}
-
-.dropdown-button.ant-btn:hover,
-.dropdown-button.ant-btn:focus,
-.dropdown-button.ant-btn:active {
-  border: 1px solid #FFFFFF !important;
-  color: #B5B5B5 !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-.ant-form-item {
-  margin-bottom: 0 !important;
-}
-`;
 
 const Signup = () => {
   const [messageKeys, setMessageKeys] = useState([]);
@@ -201,12 +51,18 @@ const Signup = () => {
 
   return (
     <>
-    <GlobalStyle />
+    <head>
+      <style>
+        {`body{
+          -webkit-align-items: center;
+        }`}
+      </style>
+    </head>
     <div className="middle" style={{ marginBottom: '25px' }}>
       <Loader style={{ alignItems: 'center' }} />
     </div>
     <div className="middle">
-      <h3 className="title">비밀번호 변경</h3>
+      <h3 className="menu-title-pass">비밀번호 변경</h3>
     </div>
     <span className="content"> </span>
     <Form
@@ -221,20 +77,17 @@ const Signup = () => {
       }}
     >
       <Form.Item name="password">
-        <Input.Password placeholder="비밀번호" className="login-password" />
+        <Input.Password placeholder="비밀번호" className="input-black" />
       </Form.Item>
       <Form.Item name="passwordRe">
-        <Input.Password placeholder="비밀번호 확인" className="login-password" />
+        <Input.Password placeholder="비밀번호 확인" className="input-black" />
       </Form.Item>
     </Form>
     <div className="middle" style={{marginTop: '25px', gap: '20px'}}>
-      <Link href="/login" legacyBehavior><Button className="confirm" type="text">
-        로그인
-      </Button></Link>
       <Link href="/changepass" legacyBehavior>
-      <Button className="confirm" type="text" onClick={showCustomMessage}>
+      <Button className="button-confirm-white" type="text" onClick={showCustomMessage}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          메일 전송
+          변경하기
           <Icon icon="bitcoin-icons:arrow-right-filled" width="12" height="12" style={{position: 'relative', bottom: '0.05em'}} />
         </span>
       </Button>

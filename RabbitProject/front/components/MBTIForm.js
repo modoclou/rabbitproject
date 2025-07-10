@@ -61,6 +61,13 @@ const MBTIForm = () => {
 
   return (
     <>
+    <head>
+      <style>
+        {`body{
+          -webkit-align-items: center;
+        }`}
+      </style>
+    </head>
     <div className="middle" style={{ marginBottom: '25px' }}>
       <Loader isActive={loading} style={{ alignItems: 'center' }} />
     </div>

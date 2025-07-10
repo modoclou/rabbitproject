@@ -43,6 +43,13 @@ const Login = () => {
 
   return (
     <>
+    <head>
+      <style>
+        {`body{
+          -webkit-align-items: center;
+        }`}
+      </style>
+    </head>
       <div className="middle" style={{ marginBottom: '25px' }}>
         <Loader style={{ alignItems: 'center' }} />
       </div>
