@@ -7,6 +7,8 @@ import { Form, Input, Button, message } from 'antd';
 import AppLayout from '../components/AppLayout';
 import Loader from '../components/Loader';
 
+axios.defaults.withCredentials = true;
+
 const Login = () => {
   const router = useRouter();
   const [form] = Form.useForm();

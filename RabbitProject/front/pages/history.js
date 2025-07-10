@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import AppLayout from '../components/AppLayout'; 
 import History from '../components/History'; 
 
-const Home = () => {
+const history = () => {
   return (
     <AppLayout>
       <History />
@@ -11,4 +11,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default history;

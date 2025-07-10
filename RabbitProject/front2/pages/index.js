@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import 'antd/dist/antd.css';   // 공통css
+import 'antd/dist/antd.css';
 import AppLayout from '../components/AppLayout'; 
 import MBTIForm from '../components/MBTIForm';
 

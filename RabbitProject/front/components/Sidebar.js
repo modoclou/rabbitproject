@@ -109,6 +109,14 @@ const Sidebar = () => {
             </div>
           </Link>
         </div>
+        <div className="menu-item">
+          <Link href="/mypage" legacyBehavior>
+            <div className="menu-content-wrapper">
+              <div className="dot" />
+              <span className="menu-label">user</span>
+            </div>
+          </Link>
+        </div>
       </div>
     </>
   );
