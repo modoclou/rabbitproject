@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Icon } from '@iconify/react';
@@ -32,9 +33,12 @@ const Login = () => {
       }
 
       const data = await response.json();
-      localStorage.setItem('token', data.token); // 토큰 저장
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('nickname', data.nickname);
       message.success('로그인 성공!');
-      router.push('/'); // 로그인 후 이동할 페이지
+      router.push('/').then(() => {
+        router.reload();
+      });
     } catch (error) {
       console.error(error);
       message.error('아이디 또는 비밀번호가 잘못되었습니다.');

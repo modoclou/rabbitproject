@@ -39,7 +39,6 @@ const MBTIForm = () => {
   const handleMenuClick = ({ key }) => {
     const mbti = mbtiList[parseInt(key) - 1];
     setSelectedMBTI(mbti);
-    message.success(`${mbti} 선택됨`);
   };
 
   const handleResultClick = () => {

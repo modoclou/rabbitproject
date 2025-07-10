@@ -1,6 +1,7 @@
 import Sidebar from '../components/Sidebar';
 import Wavebox from '../components/Wavebox';
 import { createGlobalStyle } from 'styled-components';
+import MessageProvider from '../components/MessageProvider';
 
 const colorMap = {
   NT: '#BA62B9',
@@ -639,10 +640,12 @@ p{
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <GlobalStyle />
+      <MessageProvider>
+        <Component {...pageProps} />
+      </MessageProvider>
       <Sidebar />
       <Wavebox />
-      <GlobalStyle />
-      <Component {...pageProps} />
     </>
   );
 }

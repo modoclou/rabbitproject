@@ -1,7 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 const Sidebar = () => {
+const [nickname, setNickname] = useState("");
+
+  useEffect(() => {
+    const storedNickname = localStorage.getItem("nickname");
+    if (storedNickname) {
+      setNickname(storedNickname);
+    }
+  }, []);
+
   const sidebarRef = useRef(null);
 
   useEffect(() => {
@@ -14,6 +23,19 @@ const Sidebar = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedNickname = localStorage.getItem("nickname");
+      setNickname(storedNickname || "");
+    };
+    handleStorageChange();
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   return (
@@ -109,14 +131,16 @@ const Sidebar = () => {
             </div>
           </Link>
         </div>
-        <div className="menu-item">
-          <Link href="/mypage" legacyBehavior>
-            <div className="menu-content-wrapper">
-              <div className="dot" />
-              <span className="menu-label">user</span>
-            </div>
-          </Link>
-        </div>
+        {nickname && (
+          <div className="menu-item">
+            <Link href="/mypage" legacyBehavior>
+              <div className="menu-content-wrapper">
+                <div className="dot" />
+                <span className="menu-label">{nickname}</span>
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
