@@ -44,7 +44,7 @@ const KeywordForm = () => {
     <div className="middle">
       <h3 className="title">Welcome to<span className="colortitle">&nbsp;Cinemine</span></h3>
     </div>
-    <span className="content-discription" style={{ display: 'block', margin: '0 0 50px 0'}}>시네마인에서 내가 원하는 필름을 찾아보세요.</span>
+    <span className="content-discription" style={{ display: 'block', margin: '0 0 50px 0', whiteSpace: 'nowrap', display: 'flex', flexDirection: 'column'}}>시네마인에서 내가 원하는 필름을 찾아보세요.<br />mbti 궁합에 맞는 영화, 나의 기분, 보고 싶은 요소에 맞추어 추천받을 수 있어요.</span>
     <Form.Item name="keyword" style={{ marginBottom: '30px' }}>
       <Input placeholder="키워드 입력" style={{width: '430px'}}
         suffix={

@@ -27,7 +27,7 @@ const History = () => {
   return (
     <>
       <div className="app">
-        <h1 className="menu-title">AI 추천 기록</h1>
+        <h1 className="menu-title" style={{fontSize: '32px', marginTop: '50px'}}>AI 추천 기록</h1>
         <div className="card-container">
           <div className="card">
             <div className="middle" style={{justifyContent: 'space-between', gap: '40px' }}>

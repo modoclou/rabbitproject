@@ -1,17 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { MessageContext } from '../components/MessageProvider';
 
 const Sidebar = () => {
-const [nickname, setNickname] = useState("");
+  const router = useRouter();
+  const sidebarRef = useRef(null);
+  const [nickname, setNickname] = useState('');
+  const { showCustomMessage } = useContext(MessageContext);
 
   useEffect(() => {
-    const storedNickname = localStorage.getItem("nickname");
+    const storedNickname = localStorage.getItem('nickname');
     if (storedNickname) {
       setNickname(storedNickname);
     }
   }, []);
-
-  const sidebarRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,16 +30,24 @@ const [nickname, setNickname] = useState("");
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const storedNickname = localStorage.getItem("nickname");
-      setNickname(storedNickname || "");
+      const storedNickname = localStorage.getItem('nickname');
+      setNickname(storedNickname || '');
     };
     handleStorageChange();
-    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener('storage', handleStorageChange);
 
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('nickname');
+    router.push('/login').then(() => {
+      router.reload();
+    });
+  };
 
   return (
     <>
@@ -61,7 +72,6 @@ const [nickname, setNickname] = useState("");
           font-family: "Inter", sans-serif;
           cursor: pointer;
           position: relative;
-          /* 기존 transform 제거 */
         }
 
         .menu-content-wrapper {
@@ -123,23 +133,25 @@ const [nickname, setNickname] = useState("");
             </div>
           </Link>
         </div>
-        <div className="menu-item">
-          <Link href="/history" legacyBehavior>
-            <div className="menu-content-wrapper">
-              <div className="dot" />
-              <span className="menu-label">저장된 기록</span>
-            </div>
-          </Link>
-        </div>
         {nickname && (
-          <div className="menu-item">
-            <Link href="/mypage" legacyBehavior>
-              <div className="menu-content-wrapper">
-                <div className="dot" />
-                <span className="menu-label">{nickname}</span>
-              </div>
-            </Link>
-          </div>
+          <>
+            <div className="menu-item">
+              <Link href="/mypage" legacyBehavior>
+                <div className="menu-content-wrapper">
+                  <div className="dot" />
+                  <span className="menu-label">{nickname}</span>
+                </div>
+              </Link>
+            </div>
+            <div className="menu-item" onClick={handleLogout}>
+              <Link href="/" legacyBehavior>
+                <div className="menu-content-wrapper">
+                  <div className="dot" />
+                  <span className="menu-label">로그아웃</span>
+                </div>
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </>

@@ -35,45 +35,28 @@ const Findpass = () => {
     key: `${index + 1}`,
   }));
 
-  const handleSendMail = () => {
-    showCustomMessage('요청하신 주소로 메일을 보냈습니다.');
-  };
-
-  const handleSubmit = async () => {
+  // 메일 전송 API 호출 및 상태관리
+  const handleSendMail = async () => {
     try {
       const values = await form.validateFields();
-
       if (!selectedMBTI) {
         showCustomMessage('MBTI를 선택해주세요.');
         return;
       }
-
-      if (values.password !== values.passwordRe) {
-        showCustomMessage('비밀번호가 일치하지 않습니다.');
-        return;
-      }
-
       setLoading(true);
 
       const payload = {
-        nickname: values.username,
         username: values.email,
-        age: values.age,
-        password: values.password,
+        nickname: values.username,
         mbti: selectedMBTI,
       };
 
-      const response = await axios.post(
-        'http://localhost:8080/movies/signup',
-        payload
-      );
+      await axios.post('http://localhost:8080/movies/findpass', payload);
 
-      showCustomMessage('회원가입 성공!');
-      router.push('/login');
-      console.log('서버 응답:', response.data);
+      showCustomMessage('임시 비밀번호를 이메일로 전송했습니다.');
     } catch (error) {
-      console.error('회원가입 오류:', error);
-      showCustomMessage('회원가입에 실패했습니다.');
+      console.error('메일 전송 실패:', error);
+      showCustomMessage('메일 전송에 실패했습니다. 정보를 확인해주세요.');
     } finally {
       setLoading(false);
     }
@@ -124,10 +107,16 @@ const Findpass = () => {
           </Button>
         </Dropdown>
 
-        <Form.Item name="username">
+        <Form.Item
+          name="username"
+          rules={[{ required: true, message: '유저명을 입력해주세요.' }]}
+        >
           <Input placeholder="유저명" className="input-black" />
         </Form.Item>
-        <Form.Item name="email">
+        <Form.Item
+          name="email"
+          rules={[{ required: true, message: '이메일을 입력해주세요.' }]}
+        >
           <Input placeholder="아이디(이메일)" className="input-black" />
         </Form.Item>
       </Form>
@@ -145,8 +134,6 @@ const Findpass = () => {
           </span>
         </Button>
       </div>
-
-      <AppLayout />
     </>
   );
 };

@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Icon } from '@iconify/react';
 import 'antd/dist/antd.css';
-import { Form, Input, Button, message } from 'antd';
-import AppLayout from '../components/AppLayout';
+import { Form, Input, Button } from 'antd';
 import Loader from '../components/Loader';
-
-axios.defaults.withCredentials = true;
+import { MessageContext } from '../components/MessageProvider';
+import { AuthContext } from '../components/AuthProvider';
 
 const Login = () => {
   const router = useRouter();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const { showCustomMessage } = useContext(MessageContext);
+  const { login } = useContext(AuthContext);  // AuthContext에서 login 함수 가져오기
 
   const onFinish = async (values) => {
     const { email, password } = values;
@@ -22,26 +22,21 @@ const Login = () => {
     try {
       const response = await fetch('http://localhost:8080/movies/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: email, password }),
       });
-
-      if (!response.ok) {
-        throw new Error('로그인 실패');
-      }
-
+      if (!response.ok) throw new Error('로그인 실패');
       const data = await response.json();
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('nickname', data.nickname);
-      message.success('로그인 성공!');
+      login(data.token, data.nickname);
+      localStorage.setItem('mbti', data.mbti);
+
+      showCustomMessage('로그인되었습니다.', 'success');
       router.push('/').then(() => {
-        router.reload();
-      });
+      router.reload();
+    });
     } catch (error) {
       console.error(error);
-      message.error('아이디 또는 비밀번호가 잘못되었습니다.');
+      showCustomMessage('아이디 또는 비밀번호가 잘못되었습니다.', 'error');
     } finally {
       setLoading(false);
     }
@@ -49,13 +44,9 @@ const Login = () => {
 
   return (
     <>
-    <head>
-      <style>
-        {`body{
-          -webkit-align-items: center;
-        }`}
-      </style>
-    </head>
+      <head>
+        <style>{`body { -webkit-align-items: center; }`}</style>
+      </head>
       <div className="middle" style={{ marginBottom: '25px' }}>
         <Loader style={{ alignItems: 'center' }} />
       </div>
@@ -77,12 +68,15 @@ const Login = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '15px'
+          gap: '15px',
         }}
       >
         <Form.Item
           name="email"
-          rules={[{ required: true, message: '이메일을 입력해주세요.' }]}
+          rules={[
+            { required: true, message: '이메일을 입력해주세요.' },
+            { type: 'email', message: '이메일 형식이 아닙니다.' },
+          ]}
         >
           <Input placeholder="아이디(이메일)" className="login-input" />
         </Form.Item>
@@ -90,7 +84,7 @@ const Login = () => {
           name="password"
           rules={[{ required: true, message: '비밀번호를 입력해주세요.' }]}
         >
-          <Input.Password placeholder="비밀번호" className="login-password" />
+          <Input.Password placeholder="비밀번호" className="login-password" autoComplete="current-password" />
         </Form.Item>
         <div className="middle" style={{ marginTop: '25px', gap: '20px' }}>
           <Link href="/signup" legacyBehavior>
@@ -116,7 +110,6 @@ const Login = () => {
           </Button>
         </div>
       </Form>
-      <AppLayout />
     </>
   );
 };

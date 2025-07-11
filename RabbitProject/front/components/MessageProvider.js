@@ -28,6 +28,7 @@ const MessageProvider = ({ children }) => {
 
   const showCustomMessage = (content) => {
   const newKey = `msg_${Date.now()}`;
+
   setMessageKeys((prevKeys) => {
     let updatedKeys = [...prevKeys];
     if (updatedKeys.length >= 7) {
@@ -35,8 +36,6 @@ const MessageProvider = ({ children }) => {
       message.destroy(oldestKey);
       updatedKeys = [...rest];
     }
-    const nextKeys = [...updatedKeys, newKey];
-    setMessageKeys(nextKeys);
 
     message.open({
       key: newKey,
@@ -45,7 +44,8 @@ const MessageProvider = ({ children }) => {
       duration: 3,
       className: 'custom-message',
     });
-    return nextKeys;
+
+    return [...updatedKeys, newKey];
   });
 };
 

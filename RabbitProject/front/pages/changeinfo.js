@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import Link from 'next/link';
@@ -22,7 +22,7 @@ const Signup = () => {
   const [form] = Form.useForm();
   const [selectedMBTI, setSelectedMBTI] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { showCustomMessage } = useContext(MessageContext); // ✅ 사용
+  const { showCustomMessage } = useContext(MessageContext); 
 
   const handleMenuClick = ({ key }) => {
     const mbti = mbtiList[parseInt(key) - 1];
@@ -64,6 +64,22 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const saved = localStorage.getItem('signupUser');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      form.setFieldsValue({
+        username: parsed.nickname,
+        email: parsed.username,
+        age: parsed.age,
+        password: parsed.password,
+        passwordRe: parsed.password,
+      });
+      setSelectedMBTI(parsed.mbti);
+    }
+  }, []);
+
 
   const menuItems = mbtiList.map((mbti, index) => ({
     label: mbti,
@@ -119,7 +135,16 @@ const Signup = () => {
             { pattern: /^[0-9]+$/, message: '숫자만 입력 가능합니다' }
           ]}
         >
-          <Input placeholder="연령" className="input-black" />
+          <Input
+            placeholder="연령"
+            className="input-black"
+            disabled
+            style={{
+              border: '1px solid rgba(255, 255, 255, 0.7)',
+              backgroundColor: 'transparent',
+              color: 'white',
+            }}
+          />
         </Form.Item>
         <Form.Item name="password" rules={[{ required: true, message: '비밀번호를 입력해주세요' }]}>
           <Input.Password placeholder="비밀번호" className="input-black" />
@@ -130,12 +155,12 @@ const Signup = () => {
       </Form>
 
       <div className="middle" style={{ marginTop: '25px', gap: '20px' }}>
-        <Link href="/login">
-          <Button className="button-black" type="text">로그인</Button>
+        <Link href="/mypage">
+          <Button className="button-black" type="text">취소</Button>
         </Link>
         <Button className="button-confirm-white" type="text" onClick={handleSubmit}>
           <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            회원가입
+            정보 변경
             <Icon icon="bitcoin-icons:arrow-right-filled" width="12" height="12" />
           </span>
         </Button>

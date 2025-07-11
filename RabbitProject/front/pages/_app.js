@@ -1,6 +1,8 @@
+import Head from 'next/head';
 import Sidebar from '../components/Sidebar';
 import Wavebox from '../components/Wavebox';
 import { createGlobalStyle } from 'styled-components';
+import AuthProvider from '../components/AuthProvider';
 import MessageProvider from '../components/MessageProvider';
 
 const colorMap = {
@@ -22,8 +24,6 @@ const MbtiColorText = ({ mbti }) => {
 };
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbit&family=Paprika&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -241,6 +241,10 @@ p{
   line-height: 40px !important;
 }
 
+.ant-input[disabled] {
+    opacity: 0.7;
+}
+
 .ant-dropdown-menu {
     position: relative;
     margin: 0;
@@ -418,7 +422,7 @@ p{
   .card-container {
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
+    margin-top: 40px;
     display: flex;
     gap: 15px;
     display: flex !important;
@@ -490,7 +494,7 @@ p{
   flex-basis: 100%;
   justify-content: center;
   text-align: center;
-  margin-top: 12px;
+  margin: 12px 0 0 0;
   font-size: 14px;
   color: #ffffff;
   cursor: pointer;
@@ -538,8 +542,8 @@ p{
 
 .poster-boxes {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  // gap: 10px;
+  margin-top: 13px;
   justify-content: space-between;
 }
 
@@ -548,6 +552,37 @@ p{
   height: 238px;
   background-color: #EDEDED;
   border-radius: 5px;
+  display: inline-block; /* 가로 정렬 */
+  margin-bottom: 0;
+  position: relative; /* shine 위치 조정 위해 */
+  transition: margin-bottom 0.2s ease;
+  transition: transform 0.2s ease;
+}
+
+/* hover 시 10px 위로 이동 - margin 대신 transform 사용해서 주변 밀림 방지 */
+.poster-placeholder:hover {
+  transform: translateY(-10px);
+}
+
+/* .shine 기본 숨김 */
+.poster-placeholder .shine {
+  display: none;
+  position: absolute;
+  bottom: 100%; /* 포스터 바로 위 */
+  left: 0;
+  width: 100%;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  font-size: 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  pointer-events: none; /* shine 위로 마우스 이벤트가 가지 않게 */
+  user-select: none;
+}
+
+.poster-placeholder:hover .shine {
+  display: block;
 }
 
 .desc-box {
@@ -612,6 +647,7 @@ p{
 
 .resultIs{
   font-size: 24px;
+  margin-bottom: 25px;
   font-family: 'Orbit', system-ui;
   color:rgb(255, 255, 255);
 }
@@ -632,20 +668,37 @@ p{
   font-family: 'Orbit', system-ui;
 }
 
-.shine{
+.shine {
+  margin-bottom: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.1s ease, max-height 0.1s ease;
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+.shine.visible {
+  overflow: visible;
+  max-height: 1000px;
 }
 `;
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbit&family=Paprika&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       <GlobalStyle />
+      <AuthProvider>
       <MessageProvider>
+        <Sidebar />
         <Component {...pageProps} />
       </MessageProvider>
-      <Sidebar />
       <Wavebox />
+      </AuthProvider>
     </>
   );
 }
