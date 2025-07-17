@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const colorMap = {
   NT: '#BA62B9',
@@ -37,7 +38,9 @@ const History = () => {
               </div>
               <div className="movie-list">{renderPosters()}</div>
             </div>
-            <p className="more-link">+N개의 결과 더보기</p>
+            <Link href="/keywordresult/{mbti}">
+              <p className="more-link">+N개의 결과 더보기</p>
+            </Link>
           </div>
           <div className="card">
             <div className="middle" style={{ justifyContent: 'space-between', gap: '40px' }}>
@@ -47,7 +50,9 @@ const History = () => {
               </div>
               <div className="movie-list">{renderPosters()}</div>
               </div>
-            <p className="more-link">+N개의 결과 더보기</p>
+              <Link href="/keywordresult/{mbti}">
+              <p className="more-link">+N개의 결과 더보기</p>
+            </Link>
           </div>
         </div>
       </div>

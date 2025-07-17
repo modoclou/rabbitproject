@@ -44,7 +44,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('nickname');
-    router.push('/login').then(() => {
+    router.push('/').then(() => {
       router.reload();
     });
   };
