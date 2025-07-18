@@ -171,6 +171,7 @@ const MBTIResult = () => {
               backgroundColor: movie?.poster ? 'transparent' : '#EDEDED',
               cursor: movie ? 'pointer' : 'default',
               borderRadius: '6px',
+              backgroundSize: 'contain'
             }}
             title={movie ? `${movie.title} (${movie.originalTitle})` : '영화 데이터 없음'}
           />
@@ -237,97 +238,9 @@ const MBTIResult = () => {
                 : '장르 · 국가 · 러닝타임'}
             </p>
             <p className="description">{hoveredMovie?.overview || '영화 설명'}</p>
-            <p
-              style={{
-                fontSize: '24px',
-                color: '#fff',
-                wordSpacing: '-4px',
-                marginBottom: '7px',
-                textAlign: 'center',
-              }}
-            >
-              추천받은 영화가 마음에 들지 않는다면?
-            </p>
-            <p style={{ fontSize: '13px', color: '#fff', textAlign: 'center' }}>
-              새 키워드를 입력해서 영화를 추천받을 수 있어요.
-              <br />
-              분위기, 현재 나의 감정, 좋아하는 것을 입력하면 AI가 다시 추천 목록을 제공합니다.
-            </p>
-            <Input
-              className="keyword-input"
-              placeholder="키워드 입력"
-              style={{ marginTop: '20px' }}
-              suffix={
-                <SearchOutlined
-                  style={{ color: '#aaa', cursor: 'pointer' }}
-                  onClick={handleAddPosterSet}
-                />
-              }
-            />
-          </div>
-
-          <div className="search-box" style={{ marginTop: '20px' }}>
-            <div className="sns-buttons">
-              <button className="sns-button">
-                <Image
-                  src="/images/kakao.png"
-                  alt="KakaoTalk"
-                  className="middle"
-                  width={30}
-                  height={30}
-                  style={{ cursor: 'pointer' }}
-                />
-              </button>
-              <button className="sns-button">
-                <Image
-                  src="/images/facebook.png"
-                  alt="Facebook"
-                  className="middle"
-                  width={30}
-                  height={30}
-                  style={{ cursor: 'pointer', marginRight: '0.05em' }}
-                />
-              </button>
-              <button className="sns-button">
-                <Image
-                  src="/images/instagram.png"
-                  alt="Instagram"
-                  className="middle"
-                  width={30}
-                  height={30}
-                  style={{ cursor: 'pointer' }}
-                />
-              </button>
-              <button className="sns-button">
-                <Image
-                  src="/images/X.png"
-                  alt="X"
-                  className="middle"
-                  width={27}
-                  height={27}
-                  style={{ cursor: 'pointer' }}
-                />
-              </button>
-              <button className="sns-button">
-                <Image
-                  src="/images/link.png"
-                  alt="Link"
-                  className="middle"
-                  width={30}
-                  height={30}
-                  style={{ cursor: 'pointer' }}
-                />
-              </button>
-            </div>
           </div>
         </div>
-
         <div className="middle" style={{ gap: '20px' }}>
-          <Link href="/" legacyBehavior>
-            <Button className="button-confirm-white" type="text">
-              결과 다시 보기
-            </Button>
-          </Link>
           <Link href="/" legacyBehavior>
             <Button className="button-confirm-white" type="text">
               처음으로

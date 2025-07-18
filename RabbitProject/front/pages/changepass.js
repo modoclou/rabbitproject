@@ -77,6 +77,15 @@ const ChangePassword = () => {
           gap: '15px',
         }}
       >
+      {/* <Form.Item
+          name="email"
+          rules={[
+            { required: true, message: '이메일을 입력해주세요.' },
+            { type: 'email', message: '이메일 형식이 아닙니다.' },
+          ]}
+        >
+          <Input placeholder="아이디(이메일)" className="input-black" />
+        </Form.Item> */}
         <Form.Item
           name="password"
           rules={[{ required: true, message: '비밀번호를 입력해주세요.' }]}

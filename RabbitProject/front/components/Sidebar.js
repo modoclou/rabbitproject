@@ -125,6 +125,7 @@ const Sidebar = () => {
             </div>
           </Link>
         </div>
+        {/*
         <div className="menu-item">
           <Link href="/keyword" legacyBehavior>
             <div className="menu-content-wrapper">
@@ -133,16 +134,17 @@ const Sidebar = () => {
             </div>
           </Link>
         </div>
+        <div className="menu-item">
+        <Link href="/changepass" legacyBehavior>
+        <div className="menu-content-wrapper">
+        <div className="dot" />
+        <span className="menu-label">비밀번호 변경</span>
+        </div>
+        </Link>
+        </div>
+        */}
         {nickname && (
           <>
-            <div className="menu-item">
-              <Link href="/mypage" legacyBehavior>
-                <div className="menu-content-wrapper">
-                  <div className="dot" />
-                  <span className="menu-label">{nickname}</span>
-                </div>
-              </Link>
-            </div>
             <div className="menu-item" onClick={handleLogout}>
               <Link href="/" legacyBehavior>
                 <div className="menu-content-wrapper">
