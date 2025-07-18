@@ -38,71 +38,88 @@ CREATE TABLE movie (
 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>
-✅ 1. 회원가입 요청 테스트: /movies/signup
-▶ Method: POST ▶ URL: http://localhost:8080/movies/signup ▶ Body (raw / JSON):
+ 
 
-json
+✅  API 테스트 개요
+- Base URL  : http://localhost:8080/movies
+🎯 필수 헤더  :  Content-Type: application/json
+🎯쿠키 필요 시 : Cookie: jwt=발급받은토큰; refresh=리프레시토큰
+
+- 주의사항:
+🎯로그인/회원가입 외 요청은 대부분 JWT 쿠키 필요
+Postman에서 Cookies 탭 또는 Headers 직접 설정
+
+📌 API 목록 요약
+HTTP	엔드포인트	설명	쿠키 필요
+POST	/signup	회원가입	❌
+POST	/login	로그인 & 쿠키 반환	❌
+POST	/reset-password	비밀번호 초기화	❌
+PATCH	/change-password	비밀번호 변경	❌
+POST	/save	영화 저장	✅
+GET	/mine	내가 저장한 영화	✅
+GET	/mbti-ai/{type}	MBTI 기반 AI 추천	⚠️ JWT 있을 경우 DB 저장
+POST	/logout	로그아웃 (쿠키 제거)	
+ 
+✅ 회원가입
+POST /movies/signup
+Body:
 {
-  "username": "test001",
-  "password": "1234",
+  "username": "cozizii-_-@naver.com",
+  "password": "1111",
   "nickname": "테스터",
   "age": 25,
   "mbti": "INTP"
 }
-✅ 2. 로그인 요청 테스트: /movies/login
-▶ Method: POST ▶ URL: http://localhost:8080/movies/login ▶ Body (raw / JSON):
-
-json
+✅ 로그인 후 쿠키 확인
+POST /movies/login
+Body:
 {
-  "username": "test001",
-  "password": "1234"
+  "username": "cozizii-_-@naver.com",
+  "password": "1111" 
 }
-📌 주의: 로그인 성공 시, 응답 헤더에 Set-Cookie: jwt=... 가 포함됩니다. 이 쿠키를 다음 요청에 수동으로 넣거나, Postman에서 자동 처리되게 해야 합니다.
 
-Postman에선 “Cookies” 버튼 클릭 > jwt 쿠키 확인
+ 
+이후 요청 Header:
+Cookie: jwt={{jwt}}
 
-또는 이후 요청 헤더에 수동으로 추가:
-
-Cookie: jwt=발급받은_JWT_값
-✅ 3. 영화 저장 테스트: /movies/save
-▶ Method: POST ▶ URL: http://localhost:8080/movies/save ▶ Header (필수):
-
-http
-Cookie: jwt=발급받은_JWT_값
-▶ Body (raw / JSON):
-
-json
+✅ 비밀번호 재설정
+http://localhost:8080/movies/reset-password
+POST /movies/reset-password
 {
-  "title": "인셉션",
-  "overview": "꿈 속의 꿈 속의 꿈...",
-  "posterPath": "/poster/inception.jpg"
-}
-✅ 4. 영화 목록 조회: /movies/mine
-▶ Method: GET ▶ URL: http://localhost:8080/movies/mine ▶ Header:
-
-http
-Cookie: jwt=발급받은_JWT_값
-✅ 로그인된 사용자 ID로 영화가 연동돼 있다면 목록이 나옵니다.
-
-✅ 5. 비밀번호 재설정 (찾기): /movies/reset-password
-▶ Method: POST ▶ URL: http://localhost:8080/movies/reset-password ▶ Body (raw / JSON):
-
-json
-{
-  "username": "test001",
+  "username": "cozizii-_-@naver.com",
   "mbti": "INTP",
-  "age": 25
+  "nickname": "테스터"
 }
-✅ 6. 비밀번호 변경: /movies/change-password
-▶ Method: PATCH ▶ URL: http://localhost:8080/movies/change-password ▶ Body (raw / JSON):
+
+{
+    "tempPassword": "Temp3267"
+}
+✅ 비밀번호 변경
+PATCH /movies/change-password
+{
+  "username": "testuser",
+  "newPassword": "newpass123",
+  "confirmPassword": "newpass123"
+}
+ 
+✅  저장된 영화 조회  - 쿠키필요
+GET /movies/mine
+Header: Cookie: jwt=...
+
+✅   MBTI 기반 추천 (ChatGPT + TMDB)
+GET /movies/mbti-ai/infp
+(옵션) Header: Cookie: jwt=...
+결과로 추천 영화 5개 + TMDB 검색 결과 포함
+
+로그인 상태일 경우 DB에 저장됨
+
+✅   로그아웃
+POST /movies/logout
+쿠키가 즉시 만료됨 (Set-Cookie: jwt=; Max-Age=0)
+
+응답:
 
 json
 {
-  "username": "test001",
-  "newPassword": "4321",
-  "confirmPassword": "4321"
+  "message": "로그아웃 완료"
 }
-
-
-✅ 7.  MBTI 기반 AI 영화 추천 테스트
-▶ Method:	GET ▶ URL	http://localhost:8080/movies/mbti-ai/INTP

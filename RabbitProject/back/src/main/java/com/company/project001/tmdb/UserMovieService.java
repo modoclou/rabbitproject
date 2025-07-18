@@ -4,6 +4,8 @@ import com.company.project001.domain.Movie;
 import com.company.project001.domain.User;
 import com.company.project001.util.JwtUserService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -13,6 +15,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class UserMovieService implements JwtUserService { // ✅ 인터페이스 구현
+
 
     private final UserMovieMapper mapper;
 
@@ -36,11 +39,12 @@ public class UserMovieService implements JwtUserService { // ✅ 인터페이스
     }
 
     // 🔎 기능3: 비밀번호 찾기 검증
-    public User verifyUserInfoForReset(String username, String mbti, int age) {
+    public User verifyUserInfoForReset(String username, String mbti, String nickname) {
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         params.put("mbti", mbti);
-        params.put("age", age);
+        params.put("nickname", nickname); 
+        
         return mapper.verifyUserInfoForReset(params);
     }
 
@@ -65,5 +69,17 @@ public class UserMovieService implements JwtUserService { // ✅ 인터페이스
     // 🎬 기능5-2: 영화 목록 가져오기
     public List<Movie> getMoviesByUserId(Long userId) {
         return mapper.findMoviesByUserId(userId);
+    }
+    
+    // 🔄 기능 7 MBTI 변경
+    public void updateMbti(String username, String newMbti) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("username", username);
+        paramMap.put("newMbti", newMbti);
+        mapper.updateMbti(paramMap);
+    }
+ // 🔄 기능 8 사용자 정보 조회 + 나이 계산 통합
+    public Map<String, Object> getUserWithAge(String username) {
+        return mapper.findByUsernameWithAge(username);
     }
 }

@@ -25,18 +25,19 @@ public class SecurityConfig {
     private final PrincipalOauth2UserService principalOauth2UserService;
     private final JwtUtil jwtUtil;
 
-    private final MemberService memberService;          // 반드시 JwtUserService 구현 필요
-    private final UserMovieService userMovieService;    // 반드시 JwtUserService 구현 필요
+    private final MemberService memberService;          // JwtUserService 구현체 - jwt
+    private final UserMovieService userMovieService;    // JwtUserService 구현체 - jwt + refresh
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        // 💡 JwtUserService 인터페이스 구현을 강제하지 않았다면 ClassCastException 발생함
+        // 🔐 각 도메인에 맞는 JWT 사용자 서비스 생성
         JwtUserService memberJwtUserService = (JwtUserService) memberService;
         JwtUserService movieJwtUserService = (JwtUserService) userMovieService;
 
-        JwtTokenFilter memberJwtFilter = new JwtTokenFilter(memberJwtUserService, jwtUtil);
-        JwtTokenFilter movieJwtFilter = new JwtTokenFilter(movieJwtUserService, jwtUtil);
+        // ✅ 각 경로별 전용 필터 구성
+        JwtTokenFilter memberJwtFilter = new JwtTokenFilter(memberJwtUserService, jwtUtil, "/api/member/");
+        JwtTokenFilter movieJwtFilter = new JwtTokenFilter(movieJwtUserService, jwtUtil, "/movies/");
 
         http
             .csrf().disable()
@@ -48,7 +49,7 @@ public class SecurityConfig {
                     "/api/member/login", "/api/member/join",
                     "/movies/login", "/movies/signup", "/movies/reset-password", "/movies/change-password"
                 ).permitAll()
-                .antMatchers("/member/login", "/member/join", "/resorces/**").permitAll()
+                .antMatchers("/member/login", "/member/join", "/resources/**").permitAll()
                 .antMatchers("/board/**", "/member/member").authenticated()
                 .anyRequest().permitAll()
             .and()
@@ -92,7 +93,7 @@ public class SecurityConfig {
                     }
                 });
 
-        // 두 개의 필터 모두 등록
+        // ✅ 각 필터를 등록할 때는 경로가 겹쳐도 상관없음 (내부에서 분기하므로)
         http.addFilterBefore(memberJwtFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(movieJwtFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -29,6 +29,7 @@ const Login = () => {
       const data = await response.json();
       login(data.token, data.nickname);
       localStorage.setItem('mbti', data.mbti);
+      localStorage.setItem('username', email);
 
       showCustomMessage('로그인되었습니다.', 'success');
       router.push('/').then(() => {

@@ -4,6 +4,10 @@ import AppLayout from '../components/AppLayout';
 import MBTIForm from '../components/MBTIForm';
 import { MessageContext } from '../components/MessageProvider';
 
+
+// // ✅ axios 기본 설정: 쿠키 포함
+// axios.defaults.withCredentials = true;
+
 const Home = () => {
 const { showCustomMessage } = useContext(MessageContext);
 

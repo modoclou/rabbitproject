@@ -12,6 +12,7 @@ const ChangePassword = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const { showCustomMessage } = useContext(MessageContext);
+  const { username } = router.query;
 
   const handleChangePassword = async () => {
     try {
@@ -24,7 +25,7 @@ const ChangePassword = () => {
 
       // 백엔드 API 요청
       await axios.patch('http://localhost:8080/movies/change-password', {
-        username: '',
+        username: username,
         newPassword: values.password,
         confirmPassword: values.passwordRe,
       });

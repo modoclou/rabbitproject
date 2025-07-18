@@ -29,4 +29,9 @@ public interface UserMovieMapper {
 
     // 🎬 기능 5-2: 영화 조회 (유저별)
     List<Movie> findMoviesByUserId(Long userId);
+    
+    public void updateMbti(Map<String, Object> map);
+    
+    // 📦 생년월일 + 나이 같이 조회
+    Map<String, Object> findByUsernameWithAge(String username);
 }

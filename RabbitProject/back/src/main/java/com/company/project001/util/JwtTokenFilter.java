@@ -13,18 +13,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
-import java.util.Arrays; // ✅ import 추가
-import java.util.List;
+import java.util.Arrays;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtUserService userService;
     private final JwtUtil jwtUtil;
+    private final String filterPathPrefix; // ✅ 필터가 적용될 경로 접두어
 
-    public JwtTokenFilter(JwtUserService userService, JwtUtil jwtUtil) {
+    public JwtTokenFilter(JwtUserService userService, JwtUtil jwtUtil, String filterPathPrefix) {
         this.userService = userService;
         this.jwtUtil = jwtUtil;
+        this.filterPathPrefix = filterPathPrefix;
     }
 
     @Override
@@ -36,14 +38,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String uri = request.getRequestURI();
 
-        // ✅ 필터 적용 대상 경로만 처리
-        boolean isProtected = uri.startsWith("/api/") || uri.startsWith("/movies/");
-        if (!isProtected) {
+        // ✅ 이 필터가 적용돼야 할 경로인지 확인
+        if (!uri.startsWith(filterPathPrefix)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 1️⃣ 요청 헤더 또는 쿠키에서 JWT 추출
+        // 1️⃣ JWT 추출 (헤더 또는 쿠키)
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (authorizationHeader == null && request.getCookies() != null) {
@@ -57,7 +58,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             }
         }
 
-        // 2️⃣ Bearer 토큰이 없으면 다음 필터로
+        // 2️⃣ 토큰 없으면 통과
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -65,9 +66,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String token = authorizationHeader.substring(7);
 
-        // 3️⃣ 만료 여부 검사
+        // 3️⃣ 만료 여부 체크
         if (jwtUtil.isExpired(token)) {
-            filterChain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
@@ -83,7 +84,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
                         null,
-                        Arrays.asList(new SimpleGrantedAuthority(user.getRole().name())) // ✅ 수정된 부분
+                        Arrays.asList(new SimpleGrantedAuthority(user.getRole().name()))
                 );
 
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

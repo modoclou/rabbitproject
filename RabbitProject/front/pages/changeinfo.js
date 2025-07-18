@@ -23,6 +23,7 @@ const Signup = () => {
   const [selectedMBTI, setSelectedMBTI] = useState(null);
   const [loading, setLoading] = useState(false);
   const { showCustomMessage } = useContext(MessageContext); 
+  const { nickname } = router.query;
 
   const handleMenuClick = ({ key }) => {
     const mbti = mbtiList[parseInt(key) - 1];

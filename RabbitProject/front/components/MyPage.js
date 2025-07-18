@@ -22,12 +22,15 @@ const MbtiColorText = ({ mbti }) => {
 const MyPage = () => {
   const [nickname, setNickname] = useState('');
   const [mbti, setMbti] = useState('');
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     const storedNickname = localStorage.getItem('nickname') || '';
     const storedMbti = localStorage.getItem('mbti') || '';
+    const storedUsername = localStorage.getItem('username') || '';
     setNickname(storedNickname);
     setMbti(storedMbti);
+    setUsername(storedUsername);
   }, []);
 
   return (
@@ -50,7 +53,7 @@ const MyPage = () => {
         }}
       >
         <h3 className="menu-title" style={{ margin: 0 }}>
-          {nickname}
+          {nickname} / {username}
         </h3>
         <span
           className="content"
@@ -62,10 +65,18 @@ const MyPage = () => {
             textAlign: 'left',
           }}
         >
-          <Link href="/changeinfo" legacyBehavior>
+          {/* <Link href={{
+                pathname: '/changeinfo',
+                query: { nickname },
+              }}
+              legacyBehavior>
             <a>정보 변경</a>
-          </Link>
-          <Link href="/changepass" legacyBehavior>
+          </Link> */}
+          <Link href={{
+                pathname: '/changepass',
+                query: { username },
+            }}
+            legacyBehavior>
             <a>비밀번호 변경</a>
           </Link>
         </span>
