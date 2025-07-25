@@ -25,7 +25,7 @@ function ResetPassword() {
     setLoading(true);
     setMessage('');
     try {
-      const res = await axios.post('http://localhost:8080/reset-password', {
+      const res = await axios.post('/reset-password', {
         username,
         mbti,
         age,

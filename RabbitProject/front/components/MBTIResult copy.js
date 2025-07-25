@@ -128,7 +128,7 @@ const MBTIResult = () => {
 
     const fetchMovies = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/movies/mbti-ai/${storedMbti}`);
+        const res = await axios.get(`/movies/mbti-ai/${storedMbti}`);
         if (res.data && Array.isArray(res.data.recommended_movies)) {
           setMovies(res.data.recommended_movies.slice(0, 5));
         } else {

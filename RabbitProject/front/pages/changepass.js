@@ -24,7 +24,7 @@ const ChangePassword = () => {
       setLoading(true);
 
       // 백엔드 API 요청
-      await axios.patch('http://localhost:8080/movies/change-password', {
+      await axios.patch('/movies/change-password', {
         username: username,
         newPassword: values.password,
         confirmPassword: values.passwordRe,

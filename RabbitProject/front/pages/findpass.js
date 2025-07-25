@@ -51,7 +51,7 @@ const Findpass = () => {
         mbti: selectedMBTI,
       };
 
-      await axios.post('http://localhost:8080/movies/findpass', payload);
+      await axios.post('/movies/findpass', payload);
 
       showCustomMessage('임시 비밀번호를 이메일로 전송했습니다.');
     } catch (error) {

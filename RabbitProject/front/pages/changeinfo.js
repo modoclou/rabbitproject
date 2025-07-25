@@ -54,7 +54,7 @@ const Signup = () => {
         mbti: selectedMBTI,
       };
 
-      const response = await axios.post('http://localhost:8080/movies/signup', payload);
+      const response = await axios.post('/movies/signup', payload);
       localStorage.setItem('signupUser', JSON.stringify(payload));
       showCustomMessage('회원가입 성공!');
       router.push('/login');
