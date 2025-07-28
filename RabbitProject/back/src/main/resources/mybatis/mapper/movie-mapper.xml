@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.project001.tmdb.UserMovieMapper">
+
+    <!-- 🔐 기능 1: 회원가입 -->
+    <insert id="insertUser" parameterType="User">
+    INSERT INTO user(nickname, birthdate, username, password, mbti)
+    VALUES (#{nickname}, #{birthdate}, #{username}, #{password}, #{mbti})
+    </insert>
+
+    <!-- 🔑 기능 2: 로그인 -->
+    <select id="login" parameterType="map" resultType="User">
+        SELECT * FROM user 
+        WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <!-- 🔎 기능 3: 비밀번호 찾기 -->
+    <select id="verifyUserInfoForReset" parameterType="map" resultType="User">
+        SELECT * FROM user 
+        WHERE username = #{username}
+          AND mbti = #{mbti}
+          AND nickname = #{nickname}
+    </select>
+
+    <!-- 🛠 기능 4: 비밀번호 변경 -->
+    <update id="updatePassword" parameterType="map">
+        UPDATE user
+        SET password = #{newPassword}
+        WHERE username = #{username}
+    </update>
+
+    <!-- ✳️ 사용자 정보 조회 -->
+    <select id="findByUsername" parameterType="string" resultType="User">
+        SELECT * FROM user WHERE username = #{username}
+    </select>
+
+    <!-- 🎬 기능 5: 영화 저장 -->
+<insert id="insertMovie" parameterType="Movie">
+    INSERT INTO movie (
+        userid, adult, poster_path, title, original_title, overview, release_date,
+        genres, countries, runtime   
+    ) VALUES (
+        #{userid}, #{adult}, #{posterPath}, #{title}, #{originalTitle}, #{overview}, #{releaseDate},
+        #{genres}, #{countries}, #{runtime}  
+    )
+</insert>
+
+    <!-- 🎞 기능 6: 영화 목록 조회 (유저별) -->
+    <select id="findMoviesByUserId" parameterType="long" resultType="Movie">
+        SELECT 
+            id,
+            userid,
+            adult,
+            poster_path AS posterPath,
+            title,
+            original_title AS originalTitle,
+            overview,
+            release_date AS releaseDate
+        FROM movie
+        WHERE userid = #{userid}
+        ORDER BY release_date DESC
+    </select>
+
+
+	<!-- 💾 기능 7. Mapper 추가: updateMbti --> 
+	<update id="updateMbti" parameterType="map">
+	    UPDATE user
+	    SET mbti = #{newMbti}
+	    WHERE username = #{username}
+	</update>
+	
+	<!-- 💾 기능 8. 나이 조회용 Mapper 추가   -->
+	<select id="findUserAge" parameterType="string" resultType="int">
+	    SELECT TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age
+	    FROM user
+	    WHERE username = #{username}
+	</select>
+	<!-- 💾 기능 9. ✳️ 사용자 정보 조회 + 나이 계산 통합 -->
+	<select id="findByUsernameWithAge" parameterType="string" resultType="map">
+    SELECT 
+        id,
+        nickname,
+        username,
+        password,
+        mbti,
+        birthdate,
+        TIMESTAMPDIFF(YEAR, birthdate, CURDATE()) AS age
+    FROM user
+    WHERE username = #{username}
+</select>
+	
+</mapper>
