@@ -39,7 +39,7 @@ Cinemine은 MBTI와 성격 특징 기반으로 OpenAI가 영화를 선별하여 
 자유로운 가입 가능, 토큰 기반 로그인 및 비밀번호 찾기
 
 #### 시연 영상
-[![Video](https://github.com/user-attachments/assets/362f4c73-e0cb-4ee2-90f0-4703fefa99c3.png)](https://youtu.be/i2Zx5OvqSWc))
+https://youtu.be/i2Zx5OvqSWc 
 
 ---
 
