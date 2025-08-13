@@ -4,21 +4,24 @@ Cinemine은 MBTI와 성격 특징 기반으로 OpenAI가 영화를 선별하여 
 영화를 잘 모르는 사람도 쉽게 이용할 수 있는 사이트 제작을 목표로 했습니다.
 
 ---
-### 📅 개발 기간
-25.06.24 ~ 25.07.18 (25일)
-
-### 👥 역할 분담/기술 스택
-**팀 구성**
-| 팀원명 | 파트 |
-| ------ | ------ |
-| 최예진 | Front, 팀장 |
-| 팀원 | Back |
 
 ### 🧰 기술 스택
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Node](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![Next.js](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=for-the-badge) ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white) ![HTML](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white) ![Javascript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white) ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white) 
 
 **기타**: Axios, JPA, Ant Design, Iconify, OpenAI, TMDB
+
+
+### 👥 역할 분담
+**팀 구성**
+| 팀원명 | 파트 |
+| ------ | ------ |
+| 최예진 | Front, 팀장 |
+| 팀원 | Back |
+
+
+### 📅 개발 기간
+25.06.24 ~ 25.07.18 (25일)
 
 ---
 
